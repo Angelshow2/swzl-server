@@ -7,10 +7,11 @@ router.post('/item/publishlost', (req, res) => {
     desc: req.body.desc,
     itemclass: req.body.itemclass,
     img_url: req.body.img_url,
-    lost_time: req.body.lost_time,
+    occur_time: req.body.occur_time,
     site: req.body.site,
     contcat: req.body.contcat,
     account_id: req.body.account_id,
+    status: 0
   }
   item.publish_time = new Date()
 
@@ -30,7 +31,7 @@ router.post('/item/publishlost', (req, res) => {
     res.json(new Result({ code: -1, msg: '请上传物品图片！', data: null }))
     return 
   }
-  if(!item.lost_time) {
+  if(!item.occur_time) {
     res.json(new Result({ code: -1, msg: '丢失时间不能为空！', data: null }))
     return 
   }
@@ -48,12 +49,20 @@ router.post('/item/publishlost', (req, res) => {
   }
 
   pool.getConnection((err, conn) => {
-    conn.query(itemSQL.publishLost, item, (e, r) => {
+    conn.query(itemSQL.searchClassLabelByValue, item.itemclass, (e, r) => {
       if(e) throw e
       if(r) {
-        res.json(new Result({ code: 200, msg: '发布成功！', data: null }))
+        item.itemclassLabel = r[0].label
+        conn.query(itemSQL.publishLost, item, (e, r) => {
+          if(e) throw e
+          if(r) {
+            res.json(new Result({ code: 200, msg: '发布成功！', data: null }))
+          } else {
+            res.json(new Result({ code: -1, msg: '发布失败！', data: null })) 
+          }
+        })
       } else {
-        res.json(new Result({ code: -1, msg: '发布失败！', data: null })) 
+        res.json(new Result({ code: -1, msg: '查找分类失败！', data: null })) 
       }
     })
     pool.releaseConnection(conn)

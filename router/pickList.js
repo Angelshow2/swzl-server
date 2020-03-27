@@ -11,7 +11,7 @@ router.post('/item/picklist', (req, res) => {
   let totalNum
   let totalPage
 
-  itemClass === 0 ? currentSql = `SELECT * FROM swzl_pick WHERE` : currentSql = `SELECT * FROM swzl_pick WHERE itemclass='${itemClass}' AND`
+  itemClass === 0 ? currentSql = `SELECT * FROM swzl_pick WHERE status!=2 AND` : currentSql = `SELECT * FROM swzl_pick WHERE status!=2 AND itemclass='${itemClass}' AND`
 
   pool.getConnection((err, conn) => {
     conn.query(`${currentSql} title LIKE '%${searchText}%'`, (e, r) => {

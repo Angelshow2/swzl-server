@@ -1,7 +1,7 @@
 const { pool, router, Result } = require('../connect')
 const itemSQL = require('../db/itemSQL')
 
-router.post('/item/lostlist', (req, res) => {
+router.post('/item/claimlist', (req, res) => {
   let pageNum = req.body.pageNum
   let pageSize = req.body.pageSize || 10
   let searchText = req.body.searchText || ''
@@ -9,9 +9,9 @@ router.post('/item/lostlist', (req, res) => {
 
   let start = ( pageNum - 1 ) * pageSize
   let totalNum
-  let totalPage 
+  let totalPage
 
-  itemClass === 0 ? currentSql = `SELECT * FROM swzl_lost WHERE status!=2 AND` : currentSql = `SELECT * FROM swzl_lost WHERE status!=2 AND itemclass='${itemClass}' AND`
+  itemClass === 0 ? currentSql = `SELECT * FROM swzl_pick WHERE status=2 AND` : currentSql = `SELECT * FROM swzl_pick WHERE status=2 AND itemclass='${itemClass}' AND`
 
   pool.getConnection((err, conn) => {
     conn.query(`${currentSql} title LIKE '%${searchText}%'`, (e, r) => {

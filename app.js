@@ -1,4 +1,3 @@
-
 const { app, pool, Result } = require('./connect')
 const login = require('./router/login')
 const register = require('./router/register')
@@ -14,6 +13,14 @@ const lostList = require('./router/lostList')
 const pickList = require('./router/pickList')
 const userPublishLost = require('./router/userPublishLost')
 const userPublishPick = require('./router/userPublishPick')
+const returnItem = require('./router/returnItem')
+const claimItem = require('./router/claimItem')
+const returnList = require('./router/returnList')
+const claimList = require('./router/claimList')
+const updateUserLost = require('./router/updateUserLost')
+const updateUserPick = require('./router/updateUserPick')
+const deleteUserLost = require('./router/deleteUserLost')
+const deleteUserPick = require('./router/deleteUserPick')
 
 const tokenObj = require('./utils/jwt')
 
@@ -54,6 +61,14 @@ app.all('/item/lostlist', lostList)
 app.all('/item/picklist', pickList)
 app.all('/item/userlost', userPublishLost)
 app.all('/item/userpick', userPublishPick)
+app.all('/item/returnitem', returnItem)
+app.all('/item/claimitem', claimItem)
+app.all('/item/returnlist', returnList)
+app.all('/item/claimlist', claimList)
+app.all('/item/updateuserlost', updateUserLost)
+app.all('/item/updateuserpick', updateUserPick)
+app.all('/item/deleteuserlost', deleteUserLost)
+app.all('/item/deleteuserpick', deleteUserPick)
 
 
 app.listen(8080, () => {

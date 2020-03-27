@@ -1,7 +1,7 @@
-const { pool, router, Result } = require('../connect')
+const { pool, Result, router } = require('../connect')
 const itemSQL = require('../db/itemSQL')
 
-router.post('/item/publishpick', (req, res) => {
+router.post('/item/updateuserpick', (req, res) => {
   let item = {
     title: req.body.title,
     desc: req.body.desc,
@@ -9,11 +9,10 @@ router.post('/item/publishpick', (req, res) => {
     img_url: req.body.img_url,
     occur_time: req.body.occur_time,
     site: req.body.site,
-    contcat: req.body.contcat,
-    account_id: req.body.account_id,
-    status: 0
+    contcat: req.body.contcat
   }
-  item.publish_time = new Date()
+  let account_id = req.body.account_id
+  let id = req.body.id
 
   if(!item.title) {
     res.json(new Result({ code: -1, msg: '标题不能为空！', data: null }))
@@ -43,26 +42,21 @@ router.post('/item/publishpick', (req, res) => {
     res.json(new Result({ code: -1, msg: '联系方式不能为空！', data: null }))
     return 
   }
-  if(!item.account_id) {
-    res.json(new Result({ code: -1, msg: '用户账号不能为空！', data: null }))
-    return 
+  if(!account_id) {
+    return res.json(new Result({ code: -1, msg: '账号不能为空!' }))
+  }
+
+  if(!id) {
+    return res.json(new Result({ code: -1, msg: '物品id不能为空!' }))
   }
 
   pool.getConnection((err, conn) => {
-    conn.query(itemSQL.searchClassLabelByValue, item.itemclass, (e, r) => {
+    conn.query(itemSQL.updateUserPick, [item, id, account_id], (e, r) => {
       if(e) throw e
       if(r) {
-        item.itemclassLabel = r[0].label
-        conn.query(itemSQL.publishPick, item, (e, r) => {
-          if(e) throw e
-          if(r) {
-            res.json(new Result({ code: 200, msg: '发布成功！', data: null }))
-          } else {
-            res.json(new Result({ code: -1, msg: '发布失败！', data: null })) 
-          }
-        })
+        res.json(new Result({ code: 200, msg: '修改成功!', data: null }))
       } else {
-        res.json(new Result({ code: -1, msg: '查找分类失败！', data: null })) 
+        res.json(new Result({ code: -1, msg: '修改失败!', data: null }))
       }
     })
     pool.releaseConnection(conn)
