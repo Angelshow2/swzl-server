@@ -12,7 +12,9 @@ const itemSql = {
   updateUserLost: 'UPDATE swzl_lost SET ? WHERE id=? AND account_id=?',
   updateUserPick: 'UPDATE swzl_pick SET ? WHERE id=? AND account_id=?',
   deleteUserLost: 'DELETE FROM swzl_lost WHERE id=? AND account_id=?',
-  deleteUserPick: 'DELETE FROM swzl_pick WHERE id=? AND account_id=?'
+  deleteUserPick: 'DELETE FROM swzl_pick WHERE id=? AND account_id=?',
+  userReturn: 'SELECT * FROM swzl_lost WHERE return_id=? AND status!=0 ORDER BY publish_time DESC LIMIT ?,?',
+  userClaim: 'SELECT * FROM swzl_pick WHERE claim_id=? AND status!=0 ORDER BY publish_time DESC LIMIT ?,?'
 }
 
 module.exports = itemSql

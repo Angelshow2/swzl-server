@@ -1,7 +1,7 @@
-const { pool, router, Result } = require('../connect')
+const { pool, Result, router } = require('../connect')
 const itemSQL = require('../db/itemSQL')
 
-router.get('/item/userpick', (req, res) => {
+router.get('/item/userclaim', (req, res) => {
   let account_id = req.query.account_id
 
   let pageNum = req.query.pageNum
@@ -21,12 +21,12 @@ router.get('/item/userpick', (req, res) => {
 
 
   pool.getConnection((err, conn) => {
-    conn.query(itemSQL.userPublishPick, [account_id, 0, 1000], (e, r) => {
+    conn.query(itemSQL.userClaim, [account_id, 0, 1000], (e, r) => {
       if(e) throw e
       if(r) {
         totalNum = r.length
         totalPage = Math.ceil(totalNum / pageSize)
-        conn.query(itemSQL.userPublishPick, [account_id, start, parseInt(pageSize)], (e, r) => {
+        conn.query(itemSQL.userClaim, [account_id, start, parseInt(pageSize)], (e, r) => {
           if(e) throw e
           if(r) {
             res.json(new Result({ code: 200, msg: '获取成功！', data: { totalPage: totalPage, totalNum: totalNum, list: r  } }))
@@ -36,10 +36,9 @@ router.get('/item/userpick', (req, res) => {
         })
         pool.releaseConnection(conn)
       } else {
-        res.json(new Result({ code: -1, msg: '获取失败！', data: null }))
+        res.json(new Result({ code: -1, msg: '获取失败!' }))
       }
     })
   })
 })
-
 module.exports = router

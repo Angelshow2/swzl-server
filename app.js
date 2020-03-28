@@ -21,6 +21,8 @@ const updateUserLost = require('./router/updateUserLost')
 const updateUserPick = require('./router/updateUserPick')
 const deleteUserLost = require('./router/deleteUserLost')
 const deleteUserPick = require('./router/deleteUserPick')
+const userReturn = require('./router/userReturn')
+const userClaim = require('./router/userClaim')
 
 const tokenObj = require('./utils/jwt')
 
@@ -69,6 +71,8 @@ app.all('/item/updateuserlost', updateUserLost)
 app.all('/item/updateuserpick', updateUserPick)
 app.all('/item/deleteuserlost', deleteUserLost)
 app.all('/item/deleteuserpick', deleteUserPick)
+app.all('/item/userreturn', userReturn)
+app.all('/item/userclaim', userClaim)
 
 
 app.listen(8080, () => {

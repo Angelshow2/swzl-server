@@ -11,6 +11,10 @@ router.get('/item/userlost', (req, res) => {
     return res.json(new Result({ code: -1, msg: '页码不能为空!', data: null }))
   }
 
+  if(!account_id) {
+    return res.json(new Result({ code: -1, msg: '账号不能为空!' }))
+  }
+
   let start = ( pageNum - 1 ) * pageSize
   let totalNum
   let totalPage 

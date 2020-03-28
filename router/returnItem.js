@@ -23,7 +23,7 @@ router.post('/item/returnitem', (req, res) => {
             console.log(r)
             conn.query(itemSQL.returnItem, [{ return_id: userId, status: 1 }, itemId, userId], (e, r) => {
               if(e) throw e
-              if(r.length) {
+              if(r) {
                 res.json(new Result({ code: 200, msg: '归还成功！', data: null }))
               } else {
                 res.json(new Result({ code: -1, msg: '归还失败！不可以归还给自己哦!', data: null }))
