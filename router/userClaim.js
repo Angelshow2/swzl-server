@@ -1,11 +1,11 @@
 const { pool, Result, router } = require('../connect')
 const itemSQL = require('../db/itemSQL')
 
-router.get('/item/userclaim', (req, res) => {
-  let account_id = req.query.account_id
+router.post('/item/userclaim', (req, res) => {
+  let account_id = req.body.account_id
 
-  let pageNum = req.query.pageNum
-  let pageSize = req.query.pageSize || 10
+  let pageNum = req.body.pageNum
+  let pageSize = req.body.pageSize || 10
 
   if(!pageNum) {
     return res.json(new Result({ code: -1, msg: '页码不能为空!', data: null }))

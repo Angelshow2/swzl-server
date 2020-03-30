@@ -1,8 +1,8 @@
 const { pool, router, Result } = require('../connect')
 const userSQL = require('../db/userSQL')
 
-router.get('/user/majorlist', (req, res) => {
-  let value = req.query.value
+router.post('/user/majorlist', (req, res) => {
+  let value = req.body.value
   pool.getConnection((err, conn) => {
     conn.query(userSQL.getMajorList, [value], (e, r) => {
       if(e) throw e

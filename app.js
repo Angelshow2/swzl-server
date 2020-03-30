@@ -1,4 +1,5 @@
 const { app, pool, Result } = require('./connect')
+
 const login = require('./router/login')
 const register = require('./router/register')
 const resetPwd = require('./router/resetpwd')
@@ -25,8 +26,9 @@ const userReturn = require('./router/userReturn')
 const userClaim = require('./router/userClaim')
 
 const tokenObj = require('./utils/jwt')
-
 app.all('*', (req, res, next) => {
+  // 域名
+  console.log(req.headers.origin)
   //设置允许跨域的域名，*代表允许任意域名跨域
   res.header("Access-Control-Allow-Origin","*");
   //允许的header类型

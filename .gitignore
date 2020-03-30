@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 dist/
+public/item_img/lost/
+public/item_img/pick/
 package-lock.json
 
 # Editor directories and files

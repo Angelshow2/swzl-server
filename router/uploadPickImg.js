@@ -24,7 +24,7 @@ const cpUpload = upload.single('llj-swzl')
 
 router.post('/user/pickitemimg', cpUpload, (req, res) => {
   console.log(req.file.path)
-  let url = 'http://127.0.0.1:8080/' + req.file.path
+  let url = '/' +  req.file.path
   res.json(new Result({ code: 200, msg: '上传成功！', data: url }))
 })
 

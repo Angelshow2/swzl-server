@@ -1,7 +1,7 @@
 const { pool, router, Result } = require('../connect')
 const userSQL = require('../db/userSQL')
 
-router.get('/user/departlist', (req, res) => {
+router.post('/user/departlist', (req, res) => {
   pool.getConnection((err, conn) => {
     conn.query(userSQL.getDepartList, (e, r) => {
       if(e) throw e

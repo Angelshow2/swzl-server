@@ -20,10 +20,11 @@ router.post('/item/claimitem', (req, res) => {
         conn.query(itemSQL.searchPickItemById, itemId, (e, r) => {
           if(e) throw e
           if(r.length && r[0].status === 0 && !r[0].claim_id) {
-            console.log(r)
+            // console.log(r)
             conn.query(itemSQL.claimItem, [{ claim_id: userId, status: 1 }, itemId, userId], (e, r) => {
               if(e) throw e
-              if(r) {
+              console.log(r)
+              if(r.changedRows) {
                 res.json(new Result({ code: 200, msg: '认领成功！', data: null }))
               } else {
                 res.json(new Result({ code: -1, msg: '认领失败！不可以认领自己发布的哦!', data: null }))

@@ -3,6 +3,9 @@ const express = require('express')
 const app = express()
 const router = express.Router()
 const path = require('path')
+const fs = require('fs')
+// vue history模式
+// const history = require('connect-history-api-fallback');
 
 // 解析参数
 const bodyParser = require('body-parser')
@@ -10,8 +13,17 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 // 表单请求
 app.use(bodyParser.urlencoded({extended: false}))
+// vue history模式
+// app.use(history());
 
 app.use('/public',express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.resolve(__dirname, './dist')))
+
+app.get('*', function(req, res) {
+  const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
+  res.send(html)
+})
+
 
 
 const option = {
