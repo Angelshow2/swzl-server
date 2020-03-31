@@ -23,7 +23,7 @@ const cpUpload = upload.single('llj-swzl')
 // const cpUpload = upload.fields([{ name: 'key值', maxCount: num }, { name: 'key值', maxCount: num }])：当传递多个文件域的时候,对文件的解析
 
 router.post('/user/pickitemimg', cpUpload, (req, res) => {
-  console.log(req.file.path)
+  // console.log(req.file.path)
   let url = '/' +  req.file.path
   res.json(new Result({ code: 200, msg: '上传成功！', data: url }))
 })

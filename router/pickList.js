@@ -7,6 +7,10 @@ router.post('/item/picklist', (req, res) => {
   let searchText = req.body.searchText || ''
   let itemClass = req.body.itemClass || 0
 
+  if(!pageNum) {
+    return res.json(new Result({ code: -1, msg: '页码不能为空!', data: null }))
+  }
+
   let start = ( pageNum - 1 ) * pageSize
   let totalNum
   let totalPage

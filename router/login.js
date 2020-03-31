@@ -13,8 +13,8 @@
        if(e) throw e
        if(r[0] != undefined) {
         let myToken = new tokenObj()
-        let tokenv = myToken.createToken('login', 60*300)
-        console.log(r)
+        let tokenv = myToken.createToken('login', 60*300  )
+        // console.log(r)
         res.json(new Result({ code: 200, msg: '登录成功', data: { name: r[0].user_name, accountid: r[0].account_id, token: tokenv } }))
        } else {
         res.json(new Result({ code: -1, msg: '用户名或密码错误！', data: null }))

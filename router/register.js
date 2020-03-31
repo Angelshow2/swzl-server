@@ -1,6 +1,6 @@
 const { pool, router, Result } = require('../connect')
 const userSQL = require('../db/userSQL')
-
+ 
 router.post('/user/register', (req, res) => {
   let user = {
     account_id: req.body.account_id,
@@ -14,8 +14,20 @@ router.post('/user/register', (req, res) => {
 
   user.register_time = new Date()
 
+  let pattern = /^[a-zA-Z0-9]{6,18}$/;
+
+  if(!pattern.test(user.account_id)) {
+    res.json(new Result({ code: -1, msg: '账号格式不正确!', data: null }))
+    return 
+  }
+
+  if(!pattern.test(user.password)) {
+    res.json(new Result({ code: -1, msg: '密码格式不正确!', data: null }))
+    return 
+  }
+
   if(!user.account_id) {
-    res.json(new Result({ code: -1, msg: '用户名不能为空！', data: null }))
+    res.json(new Result({ code: -1, msg: '账号不能为空！', data: null }))
     return 
   }
   if(!user.password) {
@@ -51,18 +63,36 @@ router.post('/user/register', (req, res) => {
           // 若不为空，则该用户已存在
           res.json(new Result({ code: -1, msg: '该用户名已存在！', data: null }))
         } else {
-          // 新建用户
-          conn.query(userSQL.insert, user, (e, r) => {
-            if(r) {
-              res.json(new Result({ code: 200, msg: '注册成功！', data: null }))
+          conn.query(userSQL.getDepartName, user.user_depart, (e, r) => {
+            if(e) throw e
+            if(r.length) {
+              user.user_departname = r[0].label
+              conn.query(userSQL.getMajorName, user.user_major, (e, r) => {
+                if(e) throw e
+                if(r.length) {
+                  user.user_majorname = r[0].label
+                  // 新建用户
+                  conn.query(userSQL.insert, user, (e, r) => {
+                    if(e) throw e
+                    if(r) {
+                      res.json(new Result({ code: 200, msg: '注册成功！', data: null }))
+                    } else {
+                      res.json(new Result({ code: -1, msg: '注册失败！', data: null }))
+                    }
+                  })
+                  pool.releaseConnection(conn) // 释放连接池，等待别的连接使用
+                } else {
+                  res.json(new Result({ code: -1, msg: '注册失败！', data: null }))
+                }
+              })
             } else {
               res.json(new Result({ code: -1, msg: '注册失败！', data: null }))
             }
           })
+          
         }
       }
     })
-    pool.releaseConnection(conn) // 释放连接池，等待别的连接使用
   })
 })
 

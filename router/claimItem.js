@@ -23,7 +23,7 @@ router.post('/item/claimitem', (req, res) => {
             // console.log(r)
             conn.query(itemSQL.claimItem, [{ claim_id: userId, status: 1 }, itemId, userId], (e, r) => {
               if(e) throw e
-              console.log(r)
+              // console.log(r)
               if(r.changedRows) {
                 res.json(new Result({ code: 200, msg: '认领成功！', data: null }))
               } else {

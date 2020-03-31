@@ -24,6 +24,11 @@ const deleteUserLost = require('./router/deleteUserLost')
 const deleteUserPick = require('./router/deleteUserPick')
 const userReturn = require('./router/userReturn')
 const userClaim = require('./router/userClaim')
+const cancelReturn = require('./router/cancelReturn')
+const cancelClaim = require('./router/cancelClaim')
+const returnSucceed = require('./router/returnSucceed')
+const claimSucceed = require('./router/claimSucceed')
+const getUserInfo = require('./router/getUserInfo')
 
 const tokenObj = require('./utils/jwt')
 app.all('*', (req, res, next) => {
@@ -75,6 +80,11 @@ app.all('/item/deleteuserlost', deleteUserLost)
 app.all('/item/deleteuserpick', deleteUserPick)
 app.all('/item/userreturn', userReturn)
 app.all('/item/userclaim', userClaim)
+app.all('/item/cancelreturn', cancelReturn)
+app.all('/item/cancelclaim', cancelClaim)
+app.all('/item/returnsucceed', returnSucceed)
+app.all('/item/claimsucceed', claimSucceed)
+app.all('/item/userinfo', getUserInfo)
 
 
 app.listen(8080, () => {

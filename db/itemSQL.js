@@ -15,8 +15,10 @@ const itemSql = {
   deleteUserPick: 'DELETE FROM swzl_pick WHERE id=? AND account_id=?',
   userReturn: 'SELECT * FROM swzl_lost WHERE return_id=? AND status!=0 ORDER BY publish_time DESC LIMIT ?,?',
   userClaim: 'SELECT * FROM swzl_pick WHERE claim_id=? AND status!=0 ORDER BY publish_time DESC LIMIT ?,?',
-  cancelReturn: 'UPDATE swzl_lost SET ? WHERE account_id=? AND id=?',
-  cancelClaim: 'UPDATE swzl_pick SET ? WHERE account_id=? AND id=?',
+  cancelReturn: 'UPDATE swzl_lost SET ? WHERE return_id=? AND id=?',
+  cancelClaim: 'UPDATE swzl_pick SET ? WHERE claim_id=? AND id=?',
+  returnSucceed: 'UPDATE swzl_lost SET ? WHERE return_id=? AND id=?',
+  claimSucceed: 'UPDATE swzl_pick SET ? WHERE claim_id=? AND id=?',
 }
 
 module.exports = itemSql

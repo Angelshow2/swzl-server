@@ -20,7 +20,7 @@ router.post('/item/returnitem', (req, res) => {
         conn.query(itemSQL.searchLostItemById, itemId, (e, r) => {
           if(e) throw e
           if(r.length && r[0].status === 0 && !r[0].return_id) {
-            console.log(r)
+            // console.log(r)
             conn.query(itemSQL.returnItem, [{ return_id: userId, status: 1 }, itemId, userId], (e, r) => {
               if(e) throw e
               if(r.changedRows) {
