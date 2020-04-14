@@ -1,5 +1,7 @@
 const itemSql = {
   getItemList: 'SELECT * FROM swzl_itemclass',
+  getItemListByLabel: 'SELECT * FROM swzl_itemclass WHERE label=?',
+  getItemListByValue: 'SELECT * FROM swzl_itemclass WHERE value=?',
   publishLost: 'INSERT INTO swzl_lost SET ?',
   publishPick: 'INSERT INTO swzl_pick SET ?',
   userPublishLost: 'SELECT * FROM swzl_lost WHERE account_id=? ORDER BY publish_time DESC LIMIT ?,?',
@@ -36,7 +38,13 @@ const itemSql = {
   // 删除学院
   deleteDepart: 'DELETE FROM swzl_depart WHERE value=?',
   // 删除专业
-  deleteMajor: 'DELETE FROM swzl_major WHERE value=?'
+  deleteMajor: 'DELETE FROM swzl_major WHERE value=?',
+  // 新增分类
+  addClass: 'INSERT INTO swzl_itemclass SET ?',
+  // 编辑分类
+  editClass: 'UPDATE swzl_itemclass SET ? WHERE value=?',
+  // 删除分类
+  deleteClass: 'DELETE FROM swzl_itemclass WHERE value=?',
 }
 
 module.exports = itemSql

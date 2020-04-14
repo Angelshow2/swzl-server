@@ -46,6 +46,9 @@ const editDepart = require('./router/editDepart')
 const editMajor = require('./router/editMajor')
 const deleteDepart = require('./router/deleteDepart')
 const deleteMajor = require('./router/deleteMajor')
+const addClass = require('./router/addClass')
+const editClass = require('./router/editClass')
+const deleteClass = require('./router/deleteClass')
 
 
 const tokenObj = require('./utils/jwt')
@@ -120,6 +123,9 @@ app.all('/item/editdepart', editDepart)
 app.all('/item/editmajor', editMajor)
 app.all('/item/deletedepart', deleteDepart)
 app.all('/item/deletemajor', deleteMajor)
+app.all('/item/addclass', addClass)
+app.all('/item/editclass', editClass)
+app.all('/item/deleteclass', deleteClass)
 
 
 app.listen(8080, () => {
