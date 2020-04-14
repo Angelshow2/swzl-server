@@ -33,6 +33,10 @@ const itemSql = {
   editDepart: 'UPDATE swzl_depart SET ? WHERE value=?',
   // 编辑专业
   editMajor: 'UPDATE swzl_major SET ? WHERE value=?',
+  // 删除学院
+  deleteDepart: 'DELETE FROM swzl_depart WHERE value=?',
+  // 删除专业
+  deleteMajor: 'DELETE FROM swzl_major WHERE value=?'
 }
 
 module.exports = itemSql
