@@ -4,7 +4,7 @@ const itemSQL = require('../db/itemSQL')
 router.post('/item/publishlost', (req, res) => {
   let item = {
     title: req.body.title,
-    desc: req.body.desc,
+    itemdesc: req.body.itemdesc,
     itemclass: req.body.itemclass,
     img_url: req.body.img_url,
     occur_time: req.body.occur_time,
@@ -19,7 +19,7 @@ router.post('/item/publishlost', (req, res) => {
     res.json(new Result({ code: -1, msg: '标题不能为空！', data: null }))
     return 
   }
-  if(!item.desc) {
+  if(!item.itemdesc) {
     res.json(new Result({ code: -1, msg: '描述不能为空！', data: null }))
     return 
   }

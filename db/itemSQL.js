@@ -19,6 +19,20 @@ const itemSql = {
   cancelClaim: 'UPDATE swzl_pick SET ? WHERE claim_id=? AND id=?',
   returnSucceed: 'UPDATE swzl_lost SET ? WHERE return_id=? AND id=?',
   claimSucceed: 'UPDATE swzl_pick SET ? WHERE claim_id=? AND id=?',
+  allLostList: 'SELECT * FROM swzl_lost WHERE itemclass=? AND itemdesc LIKE ? ORDER BY publish_time DESC LIMIT ?,?',
+  allLostListT: 'SELECT * FROM swzl_lost WHERE itemdesc LIKE ? ORDER BY publish_time DESC LIMIT ?,?',
+  allPickList: 'SELECT * FROM swzl_pick WHERE itemclass=? AND itemdesc LIKE ? ORDER BY publish_time DESC LIMIT ?,?',
+  allPickListT: 'SELECT * FROM swzl_pick WHERE itemdesc LIKE ? ORDER BY publish_time DESC LIMIT ?,?',
+  adminDeleteLost: 'DELETE FROM swzl_lost WHERE id=?',
+  adminDeletePick: 'DELETE FROM swzl_pick WHERE id=?',
+  // 新增院系
+  newDepart: 'INSERT INTO swzl_depart SET ?',
+  // 新增专业
+  newMajor: 'INSERT INTO swzl_major SET ?',
+  // 编辑院系
+  editDepart: 'UPDATE swzl_depart SET ? WHERE value=?',
+  // 编辑专业
+  editMajor: 'UPDATE swzl_major SET ? WHERE value=?',
 }
 
 module.exports = itemSql

@@ -9,7 +9,10 @@ router.post('/user/register', (req, res) => {
     user_major: req.body.user_major,
     user_class: req.body.user_class,
     user_name: req.body.user_name,
-    user_id: req.body.user_id
+    user_id: req.body.user_id,
+    auth_name: '普通用户',
+    auth: 'consumer',
+    status: 1
   }
 
   user.register_time = new Date()
@@ -80,7 +83,7 @@ router.post('/user/register', (req, res) => {
                       res.json(new Result({ code: -1, msg: '注册失败！', data: null }))
                     }
                   })
-                  pool.releaseConnection(conn) // 释放连接池，等待别的连接使用
+                  
                 } else {
                   res.json(new Result({ code: -1, msg: '注册失败！', data: null }))
                 }
@@ -93,6 +96,7 @@ router.post('/user/register', (req, res) => {
         }
       }
     })
+    pool.releaseConnection(conn) // 释放连接池，等待别的连接使用
   })
 })
 

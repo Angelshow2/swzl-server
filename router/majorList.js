@@ -19,6 +19,7 @@ router.post('/user/majorlist', (req, res) => {
     })
     pool.releaseConnection(conn)
   })
+  
 }) 
 
 module.exports = router

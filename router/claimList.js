@@ -32,12 +32,13 @@ router.post('/item/claimlist', (req, res) => {
               res.json(new Result({ code: -1, msg: '获取失败！', data: null }))
             }
           })
-          pool.releaseConnection(conn)
+          
         })
       } else {
         res.json(new Result({ code: -1, msg: '获取失败！', data: null }))
       }
     })
+    pool.releaseConnection(conn)
   })
 })
 

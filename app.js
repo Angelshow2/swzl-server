@@ -29,11 +29,27 @@ const cancelClaim = require('./router/cancelClaim')
 const returnSucceed = require('./router/returnSucceed')
 const claimSucceed = require('./router/claimSucceed')
 const getUserInfo = require('./router/getUserInfo')
+const getUserList = require('./router/userList')
+const getAuthList = require('./router/authList')
+const setAdmin = require('./router/setAdmin')
+const cancelAdmin = require('./router/cancelAdmin')
+const startATop = require('./router/startATop')
+const initPwd = require('./router/initPwd')
+const deleteUser = require('./router/deleteUser')
+const allLostList = require('./router/allLostList')
+const allPickList = require('./router/allPickList')
+const adminDeleteLost = require('./router/adminDeleteLost')
+const adminDeletePick = require('./router/adminDeletePick')
+const newDepart = require('./router/newDepart')
+const newMajor = require('./router/newMajor')
+const editDepart = require('./router/editDepart')
+const editMajor = require('./router/editMajor')
+
 
 const tokenObj = require('./utils/jwt')
 app.all('*', (req, res, next) => {
   // 域名
-  console.log(req.headers.origin)
+  // console.log(req.headers.origin)
   //设置允许跨域的域名，*代表允许任意域名跨域
   res.header("Access-Control-Allow-Origin","*");
   //允许的header类型
@@ -85,6 +101,21 @@ app.all('/item/cancelclaim', cancelClaim)
 app.all('/item/returnsucceed', returnSucceed)
 app.all('/item/claimsucceed', claimSucceed)
 app.all('/item/userinfo', getUserInfo)
+app.all('/item/userlist', getUserList)
+app.all('/item/authlist', getAuthList)
+app.all('/item/setadmin', setAdmin)
+app.all('/item/canceladmin', cancelAdmin)
+app.all('/item/startatop', startATop)
+app.all('/item/initpwd', initPwd)
+app.all('/item/deleteuser', deleteUser)
+app.all('/item/alllostlist', allLostList)
+app.all('/item/allpicklist', allPickList)
+app.all('/item/admindeletelost', adminDeleteLost)
+app.all('/item/admindeletepick', adminDeletePick)
+app.all('/item/newdepart', newDepart)
+app.all('/item/newmajor', newMajor)
+app.all('/item/editdepart', editDepart)
+app.all('/item/editmajor', editMajor)
 
 
 app.listen(8080, () => {

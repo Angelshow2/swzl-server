@@ -34,11 +34,12 @@ router.post('/item/userclaim', (req, res) => {
             res.json(new Result({ code: -1, msg: '获取失败！', data: null }))
           }
         })
-        pool.releaseConnection(conn)
+       
       } else {
         res.json(new Result({ code: -1, msg: '获取失败!' }))
       }
     })
+    pool.releaseConnection(conn)
   })
 })
 module.exports = router
