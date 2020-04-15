@@ -18,7 +18,7 @@
           let myToken = new tokenObj()
           let tokenv = myToken.createToken('login', 60*300  )
           // console.log(r)
-          res.json(new Result({ code: 200, msg: '登录成功', data: { name: r[0].user_name, accountid: r[0].account_id, token: tokenv } }))
+          res.json(new Result({ code: 200, msg: '登录成功', data: { name: r[0].user_name, accountid: r[0].account_id, role: r[0].auth, token: tokenv } }))
         }
         
        } else {
