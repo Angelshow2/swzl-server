@@ -49,6 +49,7 @@ const deleteMajor = require('./router/deleteMajor')
 const addClass = require('./router/addClass')
 const editClass = require('./router/editClass')
 const deleteClass = require('./router/deleteClass')
+const getAllMajor = require('./router/getAllMajor')
 
 
 const tokenObj = require('./utils/jwt')
@@ -126,6 +127,7 @@ app.all('/item/deletemajor', deleteMajor)
 app.all('/item/addclass', addClass)
 app.all('/item/editclass', editClass)
 app.all('/item/deleteclass', deleteClass)
+app.all('/user/allmajor', getAllMajor)
 
 
 app.listen(8080, () => {

@@ -7,6 +7,7 @@ const userSql = {
   getDepartListByLabel: 'SELECT * FROM swzl_depart WHERE label=?',
   getDepartListByValue: 'SELECT * FROM swzl_depart WHERE value=?',
   getMajorList: 'SELECT * FROM swzl_major WHERE parent_depart=?',
+  getAllMajor: 'SELECT * FROM swzl_major',
   getMajorListByLabel: 'SELECT * FROM swzl_major WHERE label=?',
   getMajorListByValue: 'SELECT * FROM swzl_major WHERE value=?',
   getDepartName: 'SELECT * FROM swzl_depart WHERE value=?',
