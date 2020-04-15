@@ -10,6 +10,7 @@ router.post('/user/majorlist', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.getMajorList, [value], (e, r) => {
+      
       if(e) throw e
       if(r) {
         res.json(new Result({ code: 200, msg: '获取成功！', data: r }))
@@ -18,6 +19,7 @@ router.post('/user/majorlist', (req, res) => {
       }
     })
     pool.releaseConnection(conn)
+    
   })
   
 }) 

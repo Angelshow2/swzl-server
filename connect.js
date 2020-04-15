@@ -33,7 +33,7 @@ const option = {
   port: '3306',
   database: 'swzl',
   connectTimeout: 5000, // 连接超时
-  mutipleStatements: false  // 是否允许一个query中包含多条sql语句
+  mutipleStatements: true  // 是否允许一个query中包含多条sql语句
 }
 
 let pool

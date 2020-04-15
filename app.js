@@ -79,7 +79,7 @@ app.all('*', (req, res, next) => {
 
 app.all('/user/login', login)
 app.all('/user/register', register)
-app.all('/user/resetpwd', resetPwd)
+app.all('/item/resetpwd', resetPwd)
 app.all('/user/departlist', departList)
 app.all('/user/majorlist', majorList)
 app.all('/item/itemclass', itemClass)

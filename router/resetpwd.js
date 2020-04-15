@@ -1,7 +1,7 @@
 const { pool, router, Result } = require('../connect')
 const userSQL = require('../db/userSQL')
 
-router.post('/resetpwd', (req, res) => {
+router.post('/item/resetpwd', (req, res) => {
   let user = {
     account_id: req.body.account_id,
     oldPassword: req.body.oldPassword,
