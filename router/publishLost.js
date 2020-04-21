@@ -50,11 +50,17 @@ router.post('/item/publishlost', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(itemSQL.searchClassLabelByValue, item.itemclass, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r) {
         item.itemclassLabel = r[0].label
         conn.query(itemSQL.publishLost, item, (e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(r) {
             res.json(new Result({ code: 200, msg: '发布成功！', data: null }))
           } else {

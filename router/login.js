@@ -10,7 +10,10 @@
    }
    pool.getConnection((err, conn) => {
      conn.query(userSQL.queryByNamePassword, [obj.account_id, obj.password], (e, r) => {
-       if(e) throw e
+      //  if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
        if(r[0] != undefined) {
         if(r[0].status === 0) {
           res.json(new Result({ code: -1, msg: '账号已停用！请联系管理员处理!', data: null }))

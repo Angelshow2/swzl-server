@@ -15,7 +15,10 @@ router.post('/item/cancelreturn', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(itemSQL.cancelReturn, [{ return_id: '', status: 0 }, return_id, id], (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       // console.log(r)
       if(r.changedRows) {
         res.json(new Result({ code: 200, msg: '取消归还成功!', data: null }))

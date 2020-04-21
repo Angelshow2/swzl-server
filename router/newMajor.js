@@ -25,16 +25,28 @@ router.post('/item/newmajor', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, account_id, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r[0].auth === 'super_admin' || r[0].auth === 'admin') {
         conn.query(userSQL.getMajorListByLabel, major.label, (e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(!r[0]) {
             conn.query(userSQL.getMajorListByValue, major.value, (e, r) => {
-              if(e) throw e
+              // if(e) throw e
+              if(e) {
+                res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+              }
               if(!r[0]) {
                 conn.query(itemSQL.newMajor, major, (e, r) => {
-                  if(e) throw e
+                  // if(e) throw e
+                  if(e) {
+                    res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+                  }
                   if(r) {
                     res.json(new Result({ code: 200, msg: '新增成功!', data: null }))
                   } else {

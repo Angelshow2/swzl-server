@@ -24,7 +24,10 @@ router.post('/item/resetpwd', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByNamePassword, [user.account_id, user.oldPassword], (e, r) => {
-      if(e) throw err
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r) {
         // 若不为空，则说明用户名密码正确
         if(r.length) {

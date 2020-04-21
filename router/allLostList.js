@@ -21,7 +21,10 @@ router.post ('/item/alllostlist', (req, res) => {
         itemSQL.allLostListT,
         [`%${searchText}%`, 0, 10000],
         (e, r) => {
-          if (e) throw e;
+          // if (e) throw e;
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if (r) {
             totalNum = r.length;
             totalPage = Math.ceil (totalNum / pageSize);
@@ -30,7 +33,10 @@ router.post ('/item/alllostlist', (req, res) => {
                 itemSQL.allLostListT,
                 [`%${searchText}%`, start, pageSize],
                 (e, r) => {
-                  if (e) throw e;
+                  // if (e) throw e;
+                  if(e) {
+                    res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+                  }
                   if (r) {
                     res.json (
                       new Result ({
@@ -62,7 +68,10 @@ router.post ('/item/alllostlist', (req, res) => {
         itemSQL.allLostList,
         [itemClass, `%${searchText}%`, 0, 10000],
         (e, r) => {
-          if (e) throw e;
+          // if (e) throw e;
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if (r) {
             totalNum = r.length;
             totalPage = Math.ceil (totalNum / pageSize);
@@ -71,7 +80,10 @@ router.post ('/item/alllostlist', (req, res) => {
                 itemSQL.allLostList,
                 [itemClass, `%${searchText}%`, start, pageSize],
                 (e, r) => {
-                  if (e) throw e;
+                  // if (e) throw e;
+                  if(e) {
+                    res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+                  }
                   if (r) {
                     res.json (
                       new Result ({

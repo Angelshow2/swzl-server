@@ -19,13 +19,19 @@ router.post('/item/claimlist', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(`${currentSql} title LIKE '%${searchText}%'`, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r) {
         totalNum = r.length
         totalPage = Math.ceil(totalNum / pageSize)
         pool.getConnection((err, conn) => {
           conn.query(`${currentSql} title LIKE '%${searchText}%' ORDER BY publish_time DESC LIMIT ${start},${pageSize}`, (e, r) => {
-            if(e) throw e
+            // if(e) throw e
+            if(e) {
+              res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+            }
             if(r) {
               res.json(new Result({ code: 200, msg: '获取成功！', data: { totalPage: totalPage, totalNum: totalNum, list: r  } }))
             } else {

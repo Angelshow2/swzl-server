@@ -15,7 +15,10 @@ router.post('/item/returnsucceed', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(itemSQL.returnSucceed, [{ status: 2 }, return_id, id], (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r.changedRows) {
         res.json(new Result({ code: 200, msg: '物品完成归还成功!', data: null }))
       } else {

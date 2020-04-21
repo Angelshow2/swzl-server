@@ -22,12 +22,18 @@ router.post('/item/userreturn', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(itemSQL.userReturn, [account_id, 0, 1000], (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r) {
         totalNum = r.length
         totalPage = Math.ceil(totalNum / pageSize)
         conn.query(itemSQL.userReturn, [account_id, start, parseInt(pageSize)], (e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(r) {
             res.json(new Result({ code: 200, msg: '获取成功！', data: { totalPage: totalPage, totalNum: totalNum, list: r  } }))
           } else {

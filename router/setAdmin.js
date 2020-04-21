@@ -7,10 +7,16 @@ router.post('/item/setadmin', (req, res) => {
   
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, userId, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r[0].auth === 'super_admin') {
         conn.query(userSQL.updateUser, [{ auth: 'admin', auth_name: '管理员' }, account_id] ,(e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(r) {
             res.json(new Result({ code: 200, msg: '设置成功!!', data: null }))
           } else {

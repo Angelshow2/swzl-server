@@ -17,7 +17,10 @@ router.post('/item/deletedepart', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, account_id, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r[0].auth === 'super_admin' || r[0].auth === 'admin') {
         conn.query(itemSQL.deleteDepart, oldValue, (e, r) => {
           if(e) {

@@ -15,14 +15,23 @@ router.post('/item/returnitem', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, userId, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r.length) {
         conn.query(itemSQL.searchLostItemById, itemId, (e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(r.length && r[0].status === 0 && !r[0].return_id) {
             // console.log(r)
             conn.query(itemSQL.returnItem, [{ return_id: userId, status: 1 }, itemId, userId], (e, r) => {
-              if(e) throw e
+              // if(e) throw e
+              if(e) {
+                res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+              }
               if(r.changedRows) {
                 res.json(new Result({ code: 200, msg: '归还成功！', data: null }))
               } else {

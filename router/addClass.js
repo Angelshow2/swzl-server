@@ -21,16 +21,28 @@ router.post('/item/addclass', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, account_id, (e, r) => {
-      if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
+      // if(e) throw e
       if(r[0].auth === 'super_admin' || r[0].auth === 'admin') {
         conn.query(itemSQL.getItemListByLabel, itemclass.label, (e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(!r[0]) {
             conn.query(itemSQL.getItemListByValue, itemclass.value, (e, r) => {
-              if(e) throw e
+              // if(e) throw e
+              if(e) {
+                res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+              }
               if(!r[0]) {
                 conn.query(itemSQL.addClass, itemclass, (e, r) => {
-                  if(e) throw e
+                  // if(e) throw e
+                  if(e) {
+                    res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+                  }
                   if(r) {
                     res.json(new Result({ code: 200, msg: '新增成功!', data: null }))
                   } else {

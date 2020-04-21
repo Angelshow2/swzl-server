@@ -15,14 +15,23 @@ router.post('/item/claimitem', (req, res) => {
   
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, userId, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r.length) {
         conn.query(itemSQL.searchPickItemById, itemId, (e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(r.length && r[0].status === 0 && !r[0].claim_id) {
             // console.log(r)
             conn.query(itemSQL.claimItem, [{ claim_id: userId, status: 1 }, itemId, userId], (e, r) => {
-              if(e) throw e
+              // if(e) throw e
+              if(e) {
+                res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+              }
               // console.log(r)
               if(r.changedRows) {
                 res.json(new Result({ code: 200, msg: '认领成功！', data: null }))

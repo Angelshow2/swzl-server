@@ -7,10 +7,16 @@ router.post('/item/canceladmin', (req, res) => {
   
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, userId, (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r[0].auth === 'super_admin') {
         conn.query(userSQL.updateUser, [{ auth: 'consumer', auth_name: '普通用户' }, account_id] ,(e, r) => {
-          if(e) throw e
+          // if(e) throw e
+          if(e) {
+            res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+          }
           if(r) {
             res.json(new Result({ code: 200, msg: '取消成功!!', data: null }))
           } else {

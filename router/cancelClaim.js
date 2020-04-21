@@ -15,7 +15,10 @@ router.post('/item/cancelclaim', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(itemSQL.cancelClaim, [{ claim_id: '', status: 0 }, claim_id, id], (e, r) => {
-      if(e) throw e
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r.changedRows) {
         res.json(new Result({ code: 200, msg: '取消认领成功!', data: null }))
       } else {

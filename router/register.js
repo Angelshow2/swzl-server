@@ -60,23 +60,35 @@ router.post('/user/register', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(userSQL.queryByName, user.account_id, (e, r) => {
-      if(e) throw err
+      // if(e) throw e
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r) {
         if(r.length) {
           // 若不为空，则该用户已存在
           res.json(new Result({ code: -1, msg: '该用户名已存在！', data: null }))
         } else {
           conn.query(userSQL.getDepartName, user.user_depart, (e, r) => {
-            if(e) throw e
+            // if(e) throw e
+            if(e) {
+              res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+            }
             if(r.length) {
               user.user_departname = r[0].label
               conn.query(userSQL.getMajorName, user.user_major, (e, r) => {
-                if(e) throw e
+                // if(e) throw e
+                if(e) {
+                  res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+                }
                 if(r.length) {
                   user.user_majorname = r[0].label
                   // 新建用户
                   conn.query(userSQL.insert, user, (e, r) => {
-                    if(e) throw e
+                    // if(e) throw e
+                    if(e) {
+                      res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+                    }
                     if(r) {
                       res.json(new Result({ code: 200, msg: '注册成功！', data: null }))
                     } else {

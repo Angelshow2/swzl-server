@@ -16,7 +16,10 @@ router.post('/item/deleteuserpick', (req, res) => {
 
   pool.getConnection((err, conn) => {
     conn.query(itemSQL.deleteUserPick, [id, account_id], (e, r) => {
-      if(e) throw e 
+      // if(e) throw e 
+      if(e) {
+        res.json(new Result({ code: -1, msg: '系统维护中,请稍后再试!', data: null }))
+      }
       if(r) {
         res.json(new Result({ code: 200, msg: '删除成功!', data: null }))
       } else {
